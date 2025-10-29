@@ -17,31 +17,31 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 15%;
 
-    --primary: 22 65% 50%;
+    --primary: 202 100% 11%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 22 65% 45%;
+    --primary-hover: 202 100% 16%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 15%;
+    --secondary: 206 68% 93%;
+    --secondary-foreground: 202 100% 11%;
 
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 22 65% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 206 68% 73%;
+    --accent-foreground: 202 100% 11%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 22 65% 50%;
+    --ring: 202 100% 11%;
 
     --radius: 0.75rem;
     
-    --gradient-primary: linear-gradient(135deg, hsl(22 65% 50%), hsl(22 65% 45%));
+    --gradient-primary: linear-gradient(135deg, hsl(202 100% 11%), hsl(202 100% 16%));
     --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-hover: 0 4px 16px rgba(212, 107, 43, 0.15);
+    --shadow-hover: 0 4px 16px rgba(0, 31, 54, 0.15);
 
     --sidebar-background: 0 0% 98%;
 
@@ -70,9 +70,9 @@ All colors MUST be HSL.
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 22 65% 50%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 22 65% 55%;
+    --primary: 206 68% 73%;
+    --primary-foreground: 202 100% 11%;
+    --primary-hover: 206 68% 78%;
 
     --secondary: 0 0% 20%;
     --secondary-foreground: 0 0% 95%;
@@ -80,23 +80,23 @@ All colors MUST be HSL.
     --muted: 0 0% 20%;
     --muted-foreground: 0 0% 60%;
 
-    --accent: 22 65% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 206 68% 73%;
+    --accent-foreground: 202 100% 11%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 0 0% 25%;
     --input: 0 0% 25%;
-    --ring: 22 65% 50%;
+    --ring: 206 68% 73%;
     --sidebar-background: 0 0% 10%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 22 65% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-primary: 206 68% 73%;
+    --sidebar-primary-foreground: 202 100% 11%;
     --sidebar-accent: 0 0% 20%;
     --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 0 0% 25%;
-    --sidebar-ring: 22 65% 50%;
+    --sidebar-ring: 206 68% 73%;
   }
 }
 
