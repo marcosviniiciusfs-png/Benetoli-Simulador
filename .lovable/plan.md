@@ -1,62 +1,63 @@
 
-# Plano: Substituir Logo do Rodapé por Duas Novas Logos
+# Plano: Ajustar Logos do Rodapé e Alterar Título
 
 ## Resumo
-Vou remover a logo atual (Multimarcas) do rodapé e substituí-la pelas duas novas logos enviadas, posicionando-as lado a lado conforme solicitado.
-
-## Detalhes das Imagens
-
-- **Imagem 1** (`Design_sem_nome_17.png`): Logo branca que ficará à direita
-- **Imagem 2** (`Cópia_de_Hurtz_Company_-_LOGO_3.png`): Logo do Banco Central que ficará à esquerda
+Vou fazer três alterações:
+1. Aumentar a logo do Banco Central para 3x o tamanho atual
+2. Centralizar verticalmente as duas logos
+3. Trocar o título "Por que escolher a CréditoFácil?" para "Por que escolher a Renova?"
 
 ## Alterações
 
-### 1. Copiar as novas imagens para o projeto
+### 1. Arquivo: `src/components/Footer.tsx`
 
-Copiar as duas imagens enviadas para a pasta `src/assets/`:
-- `user-uploads://Design_sem_nome_17.png` → `src/assets/logo-footer-1.png`
-- `user-uploads://Cópia_de_Hurtz_Company_-_LOGO_3.png` → `src/assets/logo-banco-central.png`
+**Linhas 13-16 - Ajustar tamanhos e alinhamento das logos:**
 
-### 2. Atualizar `src/components/Footer.tsx`
-
-**Modificar imports:**
-```typescript
-// Remover:
-import multimarcasLogo from "@/assets/multimarcas-logo.png";
-
-// Adicionar:
-import logoFooter1 from "@/assets/logo-footer-1.png";
-import logoBancoCentral from "@/assets/logo-banco-central.png";
-```
-
-**Modificar a seção de logos (linhas 11-14):**
-
-De:
-```jsx
-<div className="flex items-center gap-2 mb-4">
-  <img src={multimarcasLogo} alt="Multimarcas" className="h-12 w-auto" />
-</div>
-```
-
-Para:
-```jsx
+```tsx
+// De:
 <div className="flex items-center gap-4 mb-4">
   <img src={logoBancoCentral} alt="Banco Central do Brasil" className="h-12 w-auto" />
   <img src={logoFooter1} alt="Malta Consórcios" className="h-12 w-auto" />
 </div>
+
+// Para:
+<div className="flex items-center gap-4 mb-4">
+  <img src={logoBancoCentral} alt="Banco Central do Brasil" className="h-36 w-auto" />
+  <img src={logoFooter1} alt="Malta Consórcios" className="h-12 w-auto" />
+</div>
+```
+
+**Explicação técnica:**
+- A logo do Banco Central passa de `h-12` (48px) para `h-36` (144px) = 3x maior
+- O `items-center` no container flex já garante o alinhamento vertical centralizado entre as logos
+- A segunda logo mantém seu tamanho original (`h-12`)
+
+### 2. Arquivo: `src/components/BenefitsSection.tsx`
+
+**Linha 27 - Alterar título:**
+
+```tsx
+// De:
+Por que escolher a CréditoFácil?
+
+// Para:
+Por que escolher a Renova?
 ```
 
 ## Resultado Visual
 
 ```text
-┌────────────────────────────────────────────────────────────┐
-│  RODAPÉ                                                    │
-│                                                            │
-│  [Logo Banco Central] [Logo 1]     Fale Conosco    Local.  │
-│  (esquerda)           (direita)                            │
-│                                                            │
-│  [Facebook]                                                │
-└────────────────────────────────────────────────────────────┘
-```
+RODAPÉ - Logos:
+┌─────────────────────────────────────┐
+│                                     │
+│  ┌─────────────┐   ┌─────┐          │
+│  │  BANCO      │   │Logo │          │
+│  │  CENTRAL    │   │ 2   │ ← centralizada verticalmente
+│  │  (3x maior) │   └─────┘          │
+│  └─────────────┘                    │
+│                                     │
+└─────────────────────────────────────┘
 
-As duas logos ficarão lado a lado na primeira coluna do rodapé, com a logo do Banco Central à esquerda e a outra logo à direita.
+SEÇÃO BENEFÍCIOS:
+"Por que escolher a Renova?" (novo título)
+```
