@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Logo e Descrição */}
           <div>
-            <div className="flex flex-col items-start gap-2 mb-4">
+            <div className="flex flex-col items-center md:items-start gap-2 mb-4">
               <div className="flex items-center gap-4">
                 <img src={logoBancoCentral} alt="Banco Central do Brasil" className="h-16 w-auto" />
                 <img src={logoFooter1} alt="Malta Consórcios" className="h-12 w-auto" />
