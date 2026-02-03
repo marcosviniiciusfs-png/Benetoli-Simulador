@@ -75,7 +75,7 @@ const TestimonialsSection = () => {
             Clientes Contemplados
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Mais de 1000 famílias já realizaram o sonho da casa própria e do carro novo.
+            Muitas famílias já realizaram o sonho da casa própria e do carro novo.
           </p>
         </div>
 
