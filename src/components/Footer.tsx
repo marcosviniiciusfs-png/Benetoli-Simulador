@@ -25,14 +25,14 @@ const Footer = () => {
                 <Phone className="w-5 h-5 mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-semibold">Telefone</p>
-                  <p className="text-white/90">(11) 99999-9999</p>
+                  <p className="text-white/90">(81) 99483-6614</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Phone className="w-5 h-5 mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-semibold">WhatsApp</p>
-                  <p className="text-white/90">(11) 99999-9999</p>
+                  <p className="text-white/90">(81) 99483-6614</p>
                 </div>
               </div>
             </div>
@@ -45,10 +45,10 @@ const Footer = () => {
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
                 <div>
-                  <p className="font-semibold">Endereço</p>
+                  <p className="font-semibold">EMPRESARIAL LAURA MACIEL</p>
                   <p className="text-white/90">
-                    Rua das Empresas, 123 – Centro<br />
-                    São Paulo/SP – CEP: 01000-000
+                    Rua Professora Laura Maciel, 23 – Universitário<br />
+                    Caruaru/PE
                   </p>
                 </div>
               </div>
