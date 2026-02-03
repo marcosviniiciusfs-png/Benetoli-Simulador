@@ -1,53 +1,60 @@
 
-# Plano: Adicionar Ícone do Facebook no Rodapé
+
+# Plano: Atualizar Logo do Rodapé e Texto da Seção de Clientes
 
 ## Resumo
-Vou substituir o texto descritivo ("Sua parceira de confiança...") por um ícone do Facebook com link de redirecionamento para a página oficial da Malta Consórcios no Facebook.
+Vou fazer duas alterações:
+1. Substituir a logo atual do rodapé (Malta) pela nova logo "Multimarcas" enviada
+2. Alterar o texto na seção de clientes contemplados
 
-## Alteração
+## Alterações
 
-### Arquivo: `src/components/Footer.tsx`
+### 1. Arquivo: `src/components/Footer.tsx`
 
-**O que será removido (linhas 14-17):**
+**Adicionar nova logo:**
+- Copiar a imagem `IMG_2039.PNG` para `src/assets/multimarcas-logo.png`
+- Importar a nova logo no componente
+- Substituir a logo Malta pela logo Multimarcas
+
+**Linha 2 - Alterar import:**
 ```jsx
-<p className="text-white/90 leading-relaxed">
-  Sua parceira de confiança para realizar o sonho da casa própria e do carro novo. 
-  Mais de 1000 famílias contempladas.
-</p>
+// De:
+import maltaLogo from "@/assets/malta-logo.png";
+// Para:
+import multimarcasLogo from "@/assets/multimarcas-logo.png";
 ```
 
-**O que será adicionado:**
+**Linha 13 - Alterar imagem:**
 ```jsx
-<div className="flex items-center gap-4 mt-2">
-  <a 
-    href="https://www.facebook.com/maltainvestimentosc?mibextid=wwXIfr&rdid=0yXJ3G3JNtxKmWSN&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BxmFUQvT7%2F%3Fmibextid%3DwwXIfr#"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-white hover:text-white/80 transition-colors"
-    aria-label="Facebook da Malta Consórcios"
-  >
-    <Facebook className="w-8 h-8" />
-  </a>
-</div>
+// De:
+<img src={maltaLogo} alt="Malta Consórcios" className="h-12 w-auto" />
+// Para:
+<img src={multimarcasLogo} alt="Multimarcas" className="h-12 w-auto" />
 ```
 
-**Import necessário:**
-Adicionar `Facebook` ao import do `lucide-react`.
+### 2. Arquivo: `src/components/TestimonialsSection.tsx`
 
-## Resultado Visual
+**Linha 78 - Alterar texto:**
+```jsx
+// De:
+Mais de 1000 famílias já realizaram o sonho da casa própria e do carro novo.
+// Para:
+Muitas famílias já realizaram o sonho da casa própria e do carro novo.
+```
 
+## Resultado Final
+
+**Rodapé:**
 ```text
 ┌─────────────────────────────────────┐
-│  [Logo Malta]                       │
-│                                     │
-│  [f]  ← Ícone do Facebook clicável  │
-│                                     │
+│  [Logo Multimarcas]  ← Nova logo    │
+│  [f]  ← Ícone Facebook              │
 └─────────────────────────────────────┘
 ```
 
-## Detalhes Técnicos
-- O ícone `Facebook` será importado do `lucide-react`
-- O link abrirá em uma nova aba (`target="_blank"`)
-- Terá `rel="noopener noreferrer"` por segurança
-- Efeito hover para indicar que é clicável
-- Atributo `aria-label` para acessibilidade
+**Seção Clientes Contemplados:**
+```text
+Clientes Contemplados
+"Muitas famílias já realizaram o sonho da casa própria e do carro novo."
+```
+
