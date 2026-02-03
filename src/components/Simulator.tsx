@@ -202,8 +202,8 @@ const Simulator = () => {
                 onClick={() => setFormData({ ...formData, hasDownPayment: "Sim" })}
                 className={`p-4 rounded-xl border-2 transition-all ${
                   formData.hasDownPayment === "Sim"
-                    ? "border-primary bg-primary/5 text-primary"
-                    : "border-border hover:border-primary/50 text-muted-foreground"
+                    ? "border-orange bg-orange/5 text-orange"
+                    : "border-border hover:border-orange/50 text-muted-foreground"
                 }`}
               >
                 <span className="text-base font-normal">Sim</span>
@@ -213,7 +213,7 @@ const Simulator = () => {
                 className={`p-4 rounded-xl border-2 transition-all ${
                   formData.hasDownPayment === "Não"
                     ? "border-foreground bg-foreground/5 text-foreground"
-                    : "border-border hover:border-primary/50 text-muted-foreground"
+                    : "border-border hover:border-orange/50 text-muted-foreground"
                 }`}
               >
                 <span className="text-base font-normal">Não</span>
@@ -355,7 +355,7 @@ const Simulator = () => {
                 <Button
                   onClick={handleNext}
                   disabled={!canProceed()}
-                  className="flex items-center gap-2 bg-primary hover:bg-primary-hover"
+                  className="flex items-center gap-2 bg-orange hover:bg-orange/90"
                 >
                   Próximo
                   <ChevronRight className="w-4 h-4" />
@@ -364,7 +364,7 @@ const Simulator = () => {
                 <Button
                   onClick={handleFinish}
                   disabled={!canProceed()}
-                  className="bg-primary hover:bg-primary-hover"
+                  className="bg-orange hover:bg-orange/90"
                 >
                   Finalizar Simulação
                 </Button>
