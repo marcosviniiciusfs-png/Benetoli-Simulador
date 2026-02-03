@@ -38,8 +38,8 @@ const BenefitsSection = () => {
               className="bg-card rounded-xl p-8 shadow-md hover:shadow-xl transition-all hover:-translate-y-1 animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6 mx-auto">
-                <benefit.icon className="w-8 h-8 text-primary" />
+              <div className="w-16 h-16 rounded-full bg-orange/10 flex items-center justify-center mb-6 mx-auto">
+                <benefit.icon className="w-8 h-8 text-orange" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-3 text-center">
                 {benefit.title}

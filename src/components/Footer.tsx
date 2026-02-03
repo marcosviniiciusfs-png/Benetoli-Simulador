@@ -32,13 +32,6 @@ const Footer = () => {
               <div className="flex items-start gap-3">
                 <Phone className="w-5 h-5 mt-1 flex-shrink-0" />
                 <div>
-                  <p className="font-semibold">Telefone</p>
-                  <p className="text-white/90">(81) 99483-6614</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Phone className="w-5 h-5 mt-1 flex-shrink-0" />
-                <div>
                   <p className="font-semibold">WhatsApp</p>
                   <p className="text-white/90">(81) 99483-6614</p>
                 </div>
