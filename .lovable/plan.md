@@ -1,52 +1,82 @@
 
-# Plano: Atualizar Logo e Cores do Cabeçalho e Rodapé
+
+# Plano: Carrossel de Imagens dos Clientes Contemplados
 
 ## Resumo
-Vou substituir a logo atual "CréditoFácil" pela logo "Malta Consórcios" que você enviou, e alterar a cor de fundo do cabeçalho e rodapé para o laranja #f85741.
+Vou substituir a seção atual de "Clientes Contemplados" por um carrossel de imagens rotativo automático, usando as 10 fotos que você enviou. O carrossel vai girar automaticamente, mas pausará quando o usuário clicar ou segurar (no mobile).
 
-## Alterações Necessárias
+## O Que Será Feito
 
-### 1. Copiar a Logo para o Projeto
-- Copiar a imagem enviada (`Design_sem_nome_15.png`) para a pasta `src/assets/` com o nome `malta-logo.png`
+### 1. Salvar as Imagens no Projeto
+As 10 fotos enviadas serão copiadas para a pasta `src/assets/clientes/`:
+- cliente-1.jpeg
+- cliente-2.jpeg
+- cliente-3.jpeg
+- cliente-4.jpeg
+- cliente-5.jpeg
+- cliente-6.jpeg
+- cliente-7.jpeg
+- cliente-8.jpeg
+- cliente-9.jpeg
+- cliente-10.jpeg
 
-### 2. Atualizar o Cabeçalho (Header.tsx)
-- Importar a nova logo como módulo ES6
-- Substituir o círculo com a letra "C" e o texto "CréditoFácil" pela imagem da logo
-- Alterar a cor de fundo de `bg-background` para um laranja customizado (#f85741)
-- Ajustar as cores do texto do menu para ficarem legíveis no fundo laranja (texto branco)
-- Ajustar o menu mobile também
+### 2. Instalar Plugin de Autoplay
+Adicionar o pacote `embla-carousel-autoplay` que permite rotação automática com controle de pausa.
 
-### 3. Atualizar o Rodapé (Footer.tsx)
-- Importar a nova logo
-- Substituir o círculo com a letra "C" e o texto "CréditoFácil" pela imagem da logo
-- Alterar a cor de fundo de `bg-primary` para o laranja (#f85741)
-- Atualizar o texto do copyright para "Malta Consórcios"
+### 3. Redesenhar a Seção
+A nova estrutura terá:
+- Titulo "Clientes Contemplados" centralizado
+- Subtitulo com quantidade de familias atendidas
+- Carrossel horizontal com as imagens em formato de cards
+- Indicadores de navegacao (bolinhas) abaixo do carrossel
+- Setas de navegacao nas laterais (desktop)
 
-### 4. Adicionar Nova Variável de Cor (index.css)
-- Adicionar uma nova variável CSS `--header-footer` com o valor HSL do laranja #f85741 (aproximadamente `6 93% 62%`)
+### 4. Comportamento do Carrossel
+- Rotacao automatica a cada 3 segundos
+- Loop infinito (quando chega ao fim, volta ao inicio)
+- Pausa ao clicar/tocar
+- Retoma rotacao ao soltar
+- Multiplas imagens visiveis por vez (3 no desktop, 2 no tablet, 1 no mobile)
 
 ---
 
-## Detalhes Técnicos
+## Detalhes Tecnicos
 
-### Conversão de Cor
-- **HEX**: #f85741
-- **HSL**: 6 93% 62%
-
-### Arquivos que Serão Modificados
-1. `src/assets/malta-logo.png` (novo arquivo - cópia da logo)
-2. `src/components/Header.tsx` - nova logo e cor de fundo laranja
-3. `src/components/Footer.tsx` - nova logo e cor de fundo laranja
-4. `src/index.css` - nova variável de cor para o laranja
-
-### Estrutura da Logo no Header
-```text
-Antes: [Círculo azul com "C"] + "CréditoFácil"
-Depois: [Imagem da logo Malta Consórcios]
+### Dependencia a Instalar
+```
+embla-carousel-autoplay
 ```
 
-### Estrutura da Logo no Footer
+### Arquivo a Modificar
+- `src/components/TestimonialsSection.tsx` - Reescrever completamente com o novo carrossel
+
+### Arquivos a Criar
+- `src/assets/clientes/cliente-1.jpeg` ate `cliente-10.jpeg` (copias das imagens enviadas)
+
+### Configuracao do Autoplay
 ```text
-Antes: [Círculo branco com "C"] + "CréditoFácil"
-Depois: [Imagem da logo Malta Consórcios com fundo claro ou versão branca]
+Autoplay({
+  delay: 3000,           // 3 segundos entre slides
+  stopOnInteraction: true,  // Pausa ao clicar
+  stopOnMouseEnter: true,   // Pausa ao passar o mouse
+  stopOnFocusIn: true       // Pausa ao focar
+})
 ```
+
+### Estrutura do Carrossel
+```text
++------------------------------------------+
+|        Clientes Contemplados             |
+|  Mais de 1000 familias ja realizaram...  |
+|                                          |
+|  [<]  [IMG1] [IMG2] [IMG3]  [>]          |
+|                                          |
+|          o  o  o  o  o  o                |
++------------------------------------------+
+```
+
+### Responsividade
+- Desktop (>1024px): 3 imagens visiveis
+- Tablet (768-1024px): 2 imagens visiveis  
+- Mobile (<768px): 1 imagem visivel
+
