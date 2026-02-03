@@ -1,5 +1,5 @@
 import { Phone, MapPin, Clock } from "lucide-react";
-import maltaLogo from "@/assets/malta-logo.png";
+import multimarcasLogo from "@/assets/multimarcas-logo.png";
 import facebookIcon from "@/assets/facebook.png";
 
 const Footer = () => {
@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Logo e Descrição */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <img src={maltaLogo} alt="Malta Consórcios" className="h-12 w-auto" />
+              <img src={multimarcasLogo} alt="Multimarcas" className="h-12 w-auto" />
             </div>
             <div className="flex items-center gap-4 mt-2">
               <a 
