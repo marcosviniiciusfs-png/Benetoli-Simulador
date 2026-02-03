@@ -1,52 +1,62 @@
 
-# Plano: Atualizar Webhook URL do Formulário
+# Plano: Substituir Logo do Rodapé por Duas Novas Logos
 
 ## Resumo
-Vou atualizar a URL do webhook no componente `Simulator.tsx` para o novo endereço fornecido. A estrutura JSON já está implementada corretamente e corresponde ao formato solicitado.
+Vou remover a logo atual (Multimarcas) do rodapé e substituí-la pelas duas novas logos enviadas, posicionando-as lado a lado conforme solicitado.
 
-## Alteração
+## Detalhes das Imagens
 
-### Arquivo: `src/components/Simulator.tsx`
+- **Imagem 1** (`Design_sem_nome_17.png`): Logo branca que ficará à direita
+- **Imagem 2** (`Cópia_de_Hurtz_Company_-_LOGO_3.png`): Logo do Banco Central que ficará à esquerda
 
-**Linha 94 - Alterar URL do webhook:**
+## Alterações
+
+### 1. Copiar as novas imagens para o projeto
+
+Copiar as duas imagens enviadas para a pasta `src/assets/`:
+- `user-uploads://Design_sem_nome_17.png` → `src/assets/logo-footer-1.png`
+- `user-uploads://Cópia_de_Hurtz_Company_-_LOGO_3.png` → `src/assets/logo-banco-central.png`
+
+### 2. Atualizar `src/components/Footer.tsx`
+
+**Modificar imports:**
 ```typescript
-// De:
-const webhookUrl = "https://hook.us1.make.com/oot99hzy5i0ycokb712jr592sxv4b2pt";
+// Remover:
+import multimarcasLogo from "@/assets/multimarcas-logo.png";
 
-// Para:
-const webhookUrl = "https://hook.us1.make.com/m60b3l3wcknirc4fc7ezy3553yso5jih";
+// Adicionar:
+import logoFooter1 from "@/assets/logo-footer-1.png";
+import logoBancoCentral from "@/assets/logo-banco-central.png";
 ```
 
-## Estrutura JSON Atual (já implementada corretamente)
+**Modificar a seção de logos (linhas 11-14):**
 
-O código atual já envia os dados no formato JSON correto:
-
-```json
-{
-  "Data de Entrada": "2026-02-03",
-  "Nome Completo": "João Silva",
-  "WhatsApp": "(81) 99999-9999",
-  "Tipo de Bem": "Imóvel",
-  "Valor Pretendido (R$)": "R$ 300.000,00",
-  "Valor de Entrada (R$)": "R$ 50.000,00" ou "Não tem",
-  "Parcela Ideal (R$)": "R$ 2.500,00",
-  "Cidade": "Recife"
-}
+De:
+```jsx
+<div className="flex items-center gap-2 mb-4">
+  <img src={multimarcasLogo} alt="Multimarcas" className="h-12 w-auto" />
+</div>
 ```
 
-## Mapeamento dos Campos do Formulário
+Para:
+```jsx
+<div className="flex items-center gap-4 mb-4">
+  <img src={logoBancoCentral} alt="Banco Central do Brasil" className="h-12 w-auto" />
+  <img src={logoFooter1} alt="Malta Consórcios" className="h-12 w-auto" />
+</div>
+```
 
-| Campo no JSON | Campo no Formulário |
-|---------------|---------------------|
-| Data de Entrada | Data atual (gerada automaticamente) |
-| Nome Completo | Nome completo |
-| WhatsApp | WhatsApp para contato |
-| Tipo de Bem | Qual tipo de bem você deseja adquirir? |
-| Valor Pretendido (R$) | Qual o valor do crédito que deseja simular? |
-| Valor de Entrada (R$) | Tem valor de entrada? (valor ou "Não tem") |
-| Parcela Ideal (R$) | Qual a parcela mensal ideal pra você? |
-| Cidade | Qual cidade você reside? |
+## Resultado Visual
 
-## Quando o Envio Acontece
+```text
+┌────────────────────────────────────────────────────────────┐
+│  RODAPÉ                                                    │
+│                                                            │
+│  [Logo Banco Central] [Logo 1]     Fale Conosco    Local.  │
+│  (esquerda)           (direita)                            │
+│                                                            │
+│  [Facebook]                                                │
+└────────────────────────────────────────────────────────────┘
+```
 
-O request é enviado quando o usuário clica no botão "Finalizar Simulação" após preencher todos os campos obrigatórios.
+As duas logos ficarão lado a lado na primeira coluna do rodapé, com a logo do Banco Central à esquerda e a outra logo à direita.
