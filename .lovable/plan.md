@@ -1,60 +1,75 @@
 
 
-# Plano: Atualizar Logo do Rodapé e Texto da Seção de Clientes
+# Plano: Aplicar Cor Laranja aos Elementos e Remover Telefone Duplicado
 
 ## Resumo
-Vou fazer duas alterações:
-1. Substituir a logo atual do rodapé (Malta) pela nova logo "Multimarcas" enviada
-2. Alterar o texto na seção de clientes contemplados
+Vou fazer duas alterações principais:
+1. Aplicar a cor laranja (mesma do cabeçalho/rodapé) aos ícones da seção de benefícios, à barra de progresso e aos botões do formulário
+2. Remover um dos números de telefone duplicados na seção "Fale Conosco" do rodapé
 
-## Alterações
+## Alterações Detalhadas
 
-### 1. Arquivo: `src/components/Footer.tsx`
-
-**Adicionar nova logo:**
-- Copiar a imagem `IMG_2039.PNG` para `src/assets/multimarcas-logo.png`
-- Importar a nova logo no componente
-- Substituir a logo Malta pela logo Multimarcas
-
-**Linha 2 - Alterar import:**
-```jsx
-// De:
-import maltaLogo from "@/assets/malta-logo.png";
-// Para:
-import multimarcasLogo from "@/assets/multimarcas-logo.png";
+### 1. Arquivo: `src/index.css`
+Adicionar uma nova variável CSS para a cor laranja reutilizável:
+```css
+--orange: 6 93% 62%;
 ```
 
-**Linha 13 - Alterar imagem:**
-```jsx
-// De:
-<img src={maltaLogo} alt="Malta Consórcios" className="h-12 w-auto" />
-// Para:
-<img src={multimarcasLogo} alt="Multimarcas" className="h-12 w-auto" />
+### 2. Arquivo: `tailwind.config.ts`
+Adicionar a cor laranja ao tema do Tailwind para fácil uso:
+```js
+orange: {
+  DEFAULT: "hsl(var(--orange))",
+}
 ```
 
-### 2. Arquivo: `src/components/TestimonialsSection.tsx`
+### 3. Arquivo: `src/components/ui/progress.tsx`
+Alterar a cor da barra de progresso de `bg-primary` para `bg-[hsl(var(--header-footer))]` (laranja)
 
-**Linha 78 - Alterar texto:**
-```jsx
-// De:
-Mais de 1000 famílias já realizaram o sonho da casa própria e do carro novo.
-// Para:
-Muitas famílias já realizaram o sonho da casa própria e do carro novo.
+### 4. Arquivo: `src/components/Simulator.tsx`
+Alterar os botões "Próximo" e "Finalizar Simulação":
+- De: `bg-primary hover:bg-primary-hover`
+- Para: `bg-[hsl(var(--header-footer))] hover:bg-[hsl(6,93%,55%)]`
+
+Alterar os botões de seleção "Sim" quando selecionados para usar a cor laranja
+
+### 5. Arquivo: `src/components/BenefitsSection.tsx`
+Alterar a cor dos ícones:
+- De: `text-primary` e `bg-primary/10`
+- Para: `text-[hsl(var(--header-footer))]` e `bg-[hsl(var(--header-footer))]/10`
+
+### 6. Arquivo: `src/components/Footer.tsx`
+Remover a seção duplicada de Telefone (linhas 32-38), mantendo apenas o WhatsApp:
+
+**Antes:**
+```
+Fale Conosco:
+├── Telefone: (81) 99483-6614
+└── WhatsApp: (81) 99483-6614
 ```
 
-## Resultado Final
+**Depois:**
+```
+Fale Conosco:
+└── WhatsApp: (81) 99483-6614
+```
 
-**Rodapé:**
+## Resultado Visual
+
 ```text
-┌─────────────────────────────────────┐
-│  [Logo Multimarcas]  ← Nova logo    │
-│  [f]  ← Ícone Facebook              │
-└─────────────────────────────────────┘
-```
-
-**Seção Clientes Contemplados:**
-```text
-Clientes Contemplados
-"Muitas famílias já realizaram o sonho da casa própria e do carro novo."
+┌─────────────────────────────────────────────┐
+│  BARRA DE PROGRESSO                         │
+│  [████████████░░░░░░░░]  ← Laranja          │
+├─────────────────────────────────────────────┤
+│  BOTÕES DO FORMULÁRIO                       │
+│  [    Próximo    ]       ← Laranja          │
+│  [Finalizar Simulação]   ← Laranja          │
+├─────────────────────────────────────────────┤
+│  ÍCONES DE BENEFÍCIOS                       │
+│  (💬) (💰) (📄)          ← Laranja          │
+├─────────────────────────────────────────────┤
+│  RODAPÉ - FALE CONOSCO                      │
+│  WhatsApp: (81) 99483-6614  ← Apenas 1 item │
+└─────────────────────────────────────────────┘
 ```
 
