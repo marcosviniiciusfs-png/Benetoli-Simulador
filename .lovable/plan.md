@@ -1,63 +1,33 @@
 
-# Plano: Ajustar Logos do Rodapé e Alterar Título
+# Prevenir Duplo Clique no Botão "Finalizar Simulação"
 
-## Resumo
-Vou fazer três alterações:
-1. Aumentar a logo do Banco Central para 3x o tamanho atual
-2. Centralizar verticalmente as duas logos
-3. Trocar o título "Por que escolher a CréditoFácil?" para "Por que escolher a Renova?"
+## Problema
+Quando o lead clica no botão "Finalizar Simulação", cliques duplos (intencionais ou acidentais) fazem com que os dados sejam enviados mais de uma vez para o Make.
+
+## Solução
+Adicionar um controle no botão que:
+- Desabilita o botão imediatamente após o primeiro clique
+- Mostra "Enviando..." como feedback visual
+- Só permite novo clique se houver erro
 
 ## Alterações
 
-### 1. Arquivo: `src/components/Footer.tsx`
+### Arquivo: `src/components/Simulator.tsx`
 
-**Linhas 13-16 - Ajustar tamanhos e alinhamento das logos:**
-
-```tsx
-// De:
-<div className="flex items-center gap-4 mb-4">
-  <img src={logoBancoCentral} alt="Banco Central do Brasil" className="h-12 w-auto" />
-  <img src={logoFooter1} alt="Malta Consórcios" className="h-12 w-auto" />
-</div>
-
-// Para:
-<div className="flex items-center gap-4 mb-4">
-  <img src={logoBancoCentral} alt="Banco Central do Brasil" className="h-36 w-auto" />
-  <img src={logoFooter1} alt="Malta Consórcios" className="h-12 w-auto" />
-</div>
-```
-
-**Explicação técnica:**
-- A logo do Banco Central passa de `h-12` (48px) para `h-36` (144px) = 3x maior
-- O `items-center` no container flex já garante o alinhamento vertical centralizado entre as logos
-- A segunda logo mantém seu tamanho original (`h-12`)
-
-### 2. Arquivo: `src/components/BenefitsSection.tsx`
-
-**Linha 27 - Alterar título:**
-
-```tsx
-// De:
-Por que escolher a CréditoFácil?
-
-// Para:
-Por que escolher a Renova?
-```
-
-## Resultado Visual
+1. **Novo estado `isSubmitting`** para controlar se já está enviando
+2. **Na função `handleFinish`**: verificar se já está enviando e bloquear envios duplicados
+3. **No botão "Finalizar Simulação"**: desabilitar enquanto estiver enviando e trocar o texto para "Enviando..."
 
 ```text
-RODAPÉ - Logos:
-┌─────────────────────────────────────┐
-│                                     │
-│  ┌─────────────┐   ┌─────┐          │
-│  │  BANCO      │   │Logo │          │
-│  │  CENTRAL    │   │ 2   │ ← centralizada verticalmente
-│  │  (3x maior) │   └─────┘          │
-│  └─────────────┘                    │
-│                                     │
-└─────────────────────────────────────┘
-
-SEÇÃO BENEFÍCIOS:
-"Por que escolher a Renova?" (novo título)
+Fluxo:
+  Clique em "Finalizar"
+       |
+  Botao fica desabilitado ("Enviando...")
+       |
+  Envia dados para o Make (1 unica vez)
+       |
+  Sucesso --> Redireciona para /obrigado
+  Erro    --> Botao volta ao normal para tentar de novo
 ```
+
+Nenhum arquivo novo sera criado. Apenas o `Simulator.tsx` sera modificado.
