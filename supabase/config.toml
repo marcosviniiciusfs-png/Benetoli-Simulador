@@ -1,1 +1,4 @@
 project_id = "pgxozdgqfhksknaultur"
+
+[functions.send-to-kommo]
+verify_jwt = false
