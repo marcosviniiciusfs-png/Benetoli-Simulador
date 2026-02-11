@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -97,8 +98,7 @@ const Simulator = () => {
 
     const webhookUrl = "https://hook.us1.make.com/m60b3l3wcknirc4fc7ezy3553yso5jih";
     
-    // Prepare data for webhook
-    const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+    const today = new Date().toISOString().split('T')[0];
     const downPaymentValue = formData.hasDownPayment === "Sim" ? formData.downPaymentAmount : "Não tem";
     
     const webhookData = {
@@ -112,19 +112,41 @@ const Simulator = () => {
       "Cidade": formData.city.trim()
     };
 
-    try {
-      console.log("Enviando dados para webhook:", webhookData);
-      
-      const response = await fetch(webhookUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(webhookData),
-      });
+    // Prepare Kommo data
+    const kommoData = {
+      fullName: formData.fullName.trim(),
+      whatsapp: formData.whatsapp,
+      propertyType: formData.propertyType,
+      creditAmount: formData.creditAmount,
+      downPaymentAmount: downPaymentValue,
+      monthlyPayment: formData.monthlyPayment,
+      city: formData.city.trim(),
+    };
 
-      if (response.ok) {
-        // Reset form
+    try {
+      console.log("Enviando dados para webhook e Kommo:", webhookData);
+      
+      // Send to Make and Kommo in parallel
+      const [makeResult, kommoResult] = await Promise.allSettled([
+        fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(webhookData),
+        }),
+        supabase.functions.invoke('send-to-kommo', {
+          body: kommoData,
+        }),
+      ]);
+
+      // Log Kommo result
+      if (kommoResult.status === 'fulfilled') {
+        console.log("Kommo response:", kommoResult.value);
+      } else {
+        console.error("Erro ao enviar para Kommo:", kommoResult.reason);
+      }
+
+      // Check if Make was successful
+      if (makeResult.status === 'fulfilled' && makeResult.value.ok) {
         setFormData({
           propertyType: "",
           creditAmount: "",
@@ -136,14 +158,12 @@ const Simulator = () => {
           whatsapp: ""
         });
         setCurrentStep(0);
-        
-        // Redirect to thank you page
         navigate("/obrigado");
       } else {
-        throw new Error("Erro ao enviar dados");
+        throw new Error("Erro ao enviar dados para Make");
       }
     } catch (error) {
-      console.error("Erro ao enviar para webhook:", error);
+      console.error("Erro ao enviar:", error);
       setIsSubmitting(false);
       toast({
         title: "Erro ao enviar simulação",
