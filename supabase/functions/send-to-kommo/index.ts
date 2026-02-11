@@ -13,7 +13,6 @@ serve(async (req) => {
   try {
     const KOMMO_ACCESS_TOKEN = Deno.env.get('KOMMO_ACCESS_TOKEN');
     const rawDomain = Deno.env.get('KOMMO_API_DOMAIN') || 'api-g.kommo.com';
-    // Clean domain: remove protocol and trailing slashes
     const KOMMO_API_DOMAIN = rawDomain.replace(/^https?:\/\//, '').replace(/\/+$/, '');
 
     if (!KOMMO_ACCESS_TOKEN) {
@@ -46,13 +45,18 @@ serve(async (req) => {
       `Cidade: ${city}`,
     ].join('\n');
 
+    // Pipeline "Tráfego Pago" and stage "Etapa de leads de entrada"
+    const PIPELINE_ID = 12050999;
+    const STATUS_ID = 92979627;
+
     // Create lead with embedded contact using /leads/complex endpoint
     const kommoPayload = [
       {
         name: `${propertyType} - ${fullName}`,
+        pipeline_id: PIPELINE_ID,
+        status_id: STATUS_ID,
         tags: [
-          { name: 'Site Simulador' },
-          { name: propertyType },
+          { name: 'SIMULADOR MALTA' },
         ],
         _embedded: {
           contacts: [
