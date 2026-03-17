@@ -1,5 +1,5 @@
 import { Phone, MapPin, Clock, Instagram } from "lucide-react";
-import logoFooter1 from "@/assets/logo-footer-1.png";
+import vivaCapitalLogo from "@/assets/viva-capital-logo.png";
 import logoBancoCentral from "@/assets/logo-banco-central.png";
 import facebookIcon from "@/assets/facebook.png";
 
@@ -13,7 +13,7 @@ const Footer = () => {
             <div className="flex flex-col items-center md:items-start gap-2 mb-4">
               <div className="flex items-center gap-4">
                 <img src={logoBancoCentral} alt="Banco Central do Brasil" className="h-16 w-auto" />
-                <img src={logoFooter1} alt="Malta Consórcios" className="h-12 w-auto" />
+                <img src={vivaCapitalLogo} alt="Viva Capital" className="h-12 w-auto" />
               </div>
               <p className="text-white/90 text-sm text-center max-w-[200px]">
                 Empresa autorizada e fiscalizada pelo Banco Central do Brasil
