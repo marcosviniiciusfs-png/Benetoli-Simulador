@@ -1,5 +1,5 @@
 import { Phone, MapPin, Clock, Instagram } from "lucide-react";
-import vivaCapitalLogo from "@/assets/viva-capital-logo.png";
+import benetoliLogo from "@/assets/benetoli-logo.png";
 import facebookIcon from "@/assets/facebook.png";
 
 const Footer = () => {
@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Logo e Descrição */}
           <div>
             <div className="flex flex-col items-center md:items-start gap-2 mb-4">
-              <img src={vivaCapitalLogo} alt="Benetoli Consórcios" className="h-20 w-auto" />
+              <img src={benetoliLogo} alt="Benetoli Consórcios" className="h-20 w-auto" />
             </div>
             <div className="flex items-center gap-4 mt-2">
               <a
