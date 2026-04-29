@@ -10,24 +10,24 @@ const Footer = () => {
           {/* Logo e Descrição */}
           <div>
             <div className="flex flex-col items-center md:items-start gap-2 mb-4">
-              <img src={vivaCapitalLogo} alt="Viva Capital" className="h-20 w-auto" />
+              <img src={vivaCapitalLogo} alt="Benetoli Consórcios" className="h-20 w-auto" />
             </div>
             <div className="flex items-center gap-4 mt-2">
               <a
-                href="https://www.facebook.com/profile.php?id=61579785880482#"
+                href="https://www.facebook.com/profile.php?id=61572363163343"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:text-white/80 transition-colors"
-                aria-label="Facebook da Viva Capital">
-                
+                aria-label="Facebook da Benetoli Consórcios">
+
                 <img src={facebookIcon} alt="Facebook" className="w-8 h-8" />
               </a>
               <a
-                href="https://www.instagram.com/vivacapitalconsorcios?igsh=NWx0NHR3dHZsZG12"
+                href="https://www.instagram.com/thiago.benetoli/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:text-white/80 transition-colors"
-                aria-label="Instagram da Viva Capital">
+                aria-label="Instagram da Benetoli Consórcios">
                 
                 <Instagram className="w-8 h-8" />
               </a>
@@ -42,7 +42,7 @@ const Footer = () => {
                 <Phone className="w-5 h-5 mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-semibold">WhatsApp</p>
-                  <p className="text-white/90">(85) 98972-6961</p>
+                  <p className="text-white/90">(19) 97162-1610</p>
                 </div>
               </div>
             </div>
@@ -56,8 +56,8 @@ const Footer = () => {
                 <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
                 <div>
                   <p className="text-white/90">
-                    Rua Sátiro Dias, 387 – Montese<br />
-                    Fortaleza-CE
+                    Av. Francisco José de Camargo Andrade, 195 - Jardim Chapadão<br />
+                    Campinas - SP, 13070-055
                   </p>
                 </div>
               </div>
@@ -78,7 +78,7 @@ const Footer = () => {
         <div className="border-t border-white/20 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-white/90 text-sm">
-              © 2025 Viva Capital. Todos os direitos reservados.
+              © 2025 Benetoli Consórcios. Todos os direitos reservados.
             </p>
             <div className="flex gap-6 text-sm">
               <button className="text-white/90 hover:text-white transition-colors">
