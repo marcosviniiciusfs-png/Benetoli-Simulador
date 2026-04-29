@@ -142,13 +142,11 @@ const Simulator = () => {
       ]);
 
       // Process Kommo result and store proof
-      let kommoSuccess = false;
       if (kommoResult.status === 'fulfilled') {
         const { data: kommoData, error: kommoError } = kommoResult.value;
         if (kommoError) {
           console.error("Erro ao enviar para Kommo:", kommoError);
         } else if (kommoData?.success) {
-          kommoSuccess = true;
           console.log("Kommo OK:", kommoData);
           // Store proof in sessionStorage
           try {
@@ -166,13 +164,6 @@ const Simulator = () => {
 
       // Check if Make was successful
       if (makeResult.status === 'fulfilled' && makeResult.value.ok) {
-        if (!kommoSuccess) {
-          toast({
-            title: "Atenção",
-            description: "Enviado para planilha, mas houve falha ao registrar no CRM. Será reprocessado.",
-            variant: "destructive",
-          });
-        }
         setFormData({
           propertyType: "",
           acquisitionTime: "",
