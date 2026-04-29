@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git -c 'user.name=Marcos Vinicius' -c user.email=hurtzgestao@gmail.com commit -m 'Cabeçalho e rodapé brancos para destacar a logo *)",
+      "Bash(git push *)"
+    ]
+  }
+}
