@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -115,71 +114,32 @@ const Simulator = () => {
       "Cidade": formData.city.trim()
     };
 
-    // Prepare Kommo data
-    const kommoData = {
-      fullName: formData.fullName.trim(),
-      whatsapp: formData.whatsapp,
-      propertyType: formData.propertyType,
-      creditAmount: formData.creditAmount,
-      downPaymentAmount: downPaymentValue,
-      monthlyPayment: formData.monthlyPayment,
-      city: formData.city.trim(),
-    };
-
     try {
-      console.log("Enviando dados para webhook e Kommo:", webhookData);
-      
-      // Send to Make and Kommo in parallel
-      const [makeResult, kommoResult] = await Promise.allSettled([
-        fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(webhookData),
-        }),
-        supabase.functions.invoke('send-to-kommo', {
-          body: kommoData,
-        }),
-      ]);
+      console.log("Enviando dados para webhook:", webhookData);
 
-      // Process Kommo result and store proof
-      if (kommoResult.status === 'fulfilled') {
-        const { data: kommoData, error: kommoError } = kommoResult.value;
-        if (kommoError) {
-          console.error("Erro ao enviar para Kommo:", kommoError);
-        } else if (kommoData?.success) {
-          console.log("Kommo OK:", kommoData);
-          // Store proof in sessionStorage
-          try {
-            sessionStorage.setItem('kommo_proof', JSON.stringify({
-              leadId: kommoData.leadId,
-              traceId: kommoData.traceId,
-              leadUrl: kommoData.leadUrl,
-              verified: kommoData.verified,
-            }));
-          } catch (e) { /* ignore */ }
-        }
-      } else {
-        console.error("Erro ao enviar para Kommo:", kommoResult.reason);
-      }
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(webhookData),
+      });
 
-      // Check if Make was successful
-      if (makeResult.status === 'fulfilled' && makeResult.value.ok) {
-        setFormData({
-          propertyType: "",
-          acquisitionTime: "",
-          creditAmount: "",
-          hasDownPayment: "",
-          downPaymentAmount: "",
-          monthlyPayment: "",
-          city: "",
-          fullName: "",
-          whatsapp: ""
-        });
-        setCurrentStep(0);
-        navigate("/obrigado");
-      } else {
+      if (!response.ok) {
         throw new Error("Erro ao enviar dados para Make");
       }
+
+      setFormData({
+        propertyType: "",
+        acquisitionTime: "",
+        creditAmount: "",
+        hasDownPayment: "",
+        downPaymentAmount: "",
+        monthlyPayment: "",
+        city: "",
+        fullName: "",
+        whatsapp: ""
+      });
+      setCurrentStep(0);
+      navigate("/obrigado");
     } catch (error) {
       console.error("Erro ao enviar:", error);
       setIsSubmitting(false);
