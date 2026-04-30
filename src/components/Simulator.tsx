@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { sendFormWebhook, type FormWebhookPayload } from "@/lib/form-webhook";
+import { saveLeadData, parseBRLToNumber } from "@/lib/lead-data";
 import InputMask from "react-input-mask";
 import {
   Select,
@@ -145,6 +146,19 @@ const Simulator = () => {
         throw new Error("Erro ao enviar dados para Make");
       }
 
+      saveLeadData({
+        tipo: "IMOVEL",
+        tipo_bem: formData.propertyType,
+        tempo_aquisicao: formData.acquisitionTime,
+        valor_pretendido: formData.creditAmount,
+        valor_pretendido_numero: parseBRLToNumber(formData.creditAmount),
+        tem_entrada: formData.hasDownPayment,
+        valor_entrada: downPaymentValue,
+        parcela_ideal: formData.monthlyPayment,
+        parcela_ideal_numero: parseBRLToNumber(formData.monthlyPayment),
+        cidade: formData.city.trim(),
+      });
+
       toast({
         title: "Simulação enviada!",
         description: "Recebemos seus dados. Em instantes entraremos em contato pelo WhatsApp.",
@@ -215,10 +229,10 @@ const Simulator = () => {
                 <SelectValue placeholder="Selecione uma opção" />
               </SelectTrigger>
               <SelectContent className="bg-card">
-                <SelectItem value="1 a 2 meses">1 a 2 meses</SelectItem>
-                <SelectItem value="3 a 4 meses">3 a 4 meses</SelectItem>
-                <SelectItem value="5 a 6 meses">5 a 6 meses</SelectItem>
-                <SelectItem value="Acima de 6 meses">Acima de 6 meses</SelectItem>
+                <SelectItem value="3 a 6 meses">3 a 6 meses</SelectItem>
+                <SelectItem value="6 a 9 meses">6 a 9 meses</SelectItem>
+                <SelectItem value="9 a 12 meses">9 a 12 meses</SelectItem>
+                <SelectItem value="Acima de 1 ano">Acima de 1 ano</SelectItem>
               </SelectContent>
             </Select>
           </div>
