@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import { sendFormWebhook, type FormWebhookPayload } from "@/lib/form-webhook";
 import InputMask from "react-input-mask";
 import {
   Select,
@@ -114,18 +115,40 @@ const Simulator = () => {
       "Cidade": formData.city.trim()
     };
 
+    const leadPayload: FormWebhookPayload = {
+      nome: formData.fullName.trim(),
+      telefone: formData.whatsapp,
+      cidade: formData.city.trim(),
+      tipo: "IMOVEL",
+      tipo_bem: formData.propertyType,
+      tempo_aquisicao: formData.acquisitionTime,
+      valor_pretendido: formData.creditAmount,
+      tem_entrada: formData.hasDownPayment,
+      valor_entrada: downPaymentValue,
+      parcela_ideal: formData.monthlyPayment,
+      origem: "Simulador Benetoli Consórcios",
+    };
+
     try {
-      console.log("Enviando dados para webhook:", webhookData);
+      console.log("Enviando dados para Make e webhook de leads:", webhookData);
 
-      const response = await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(webhookData),
-      });
+      const [makeResponse] = await Promise.all([
+        fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(webhookData),
+        }),
+        sendFormWebhook(leadPayload),
+      ]);
 
-      if (!response.ok) {
+      if (!makeResponse.ok) {
         throw new Error("Erro ao enviar dados para Make");
       }
+
+      toast({
+        title: "Simulação enviada!",
+        description: "Recebemos seus dados. Em instantes entraremos em contato pelo WhatsApp.",
+      });
 
       setFormData({
         propertyType: "",
