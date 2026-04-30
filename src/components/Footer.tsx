@@ -13,7 +13,7 @@ const Footer = () => {
             </div>
             <div className="flex items-center gap-4 mt-2">
               <a
-                href="https://www.facebook.com/profile.php?id=61572363163343"
+                href="https://www.facebook.com/profile.php?viewas=100000686899395&id=61566314376838"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:text-primary/80 transition-colors"
@@ -22,7 +22,7 @@ const Footer = () => {
                 <Facebook className="w-8 h-8" />
               </a>
               <a
-                href="https://www.instagram.com/thiago.benetoli/"
+                href="https://www.instagram.com/thiag09.benetoli/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:text-primary/80 transition-colors"
