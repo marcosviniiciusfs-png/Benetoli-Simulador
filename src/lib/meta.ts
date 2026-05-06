@@ -1,6 +1,4 @@
-const CAPI_URL =
-  (import.meta.env.VITE_META_CAPI_URL as string | undefined) ??
-  "https://uxttihjsxfowursjyult.supabase.co/functions/v1/meta-event";
+const CAPI_URL = import.meta.env.VITE_META_CAPI_URL as string | undefined;
 
 function readCookie(name: string): string | undefined {
   if (typeof document === "undefined") return undefined;
@@ -45,6 +43,12 @@ interface SendCapiArgs {
 }
 
 export async function sendCapiEvent(args: SendCapiArgs): Promise<void> {
+  if (!CAPI_URL) {
+    console.warn(
+      "VITE_META_CAPI_URL não configurada — CAPI não vai disparar (Pixel client-side ainda funciona).",
+    );
+    return;
+  }
   try {
     const res = await fetch(CAPI_URL, {
       method: "POST",

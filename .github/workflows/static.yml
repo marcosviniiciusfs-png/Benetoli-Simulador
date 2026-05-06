@@ -40,6 +40,7 @@ jobs:
           VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}
           VITE_FORM_WEBHOOK_URL=${{ secrets.VITE_FORM_WEBHOOK_URL }}
           VITE_FORM_WEBHOOK_TOKEN=${{ secrets.VITE_FORM_WEBHOOK_TOKEN }}
+          VITE_META_CAPI_URL=${{ secrets.VITE_META_CAPI_URL }}
           EOF
 
       - name: Build

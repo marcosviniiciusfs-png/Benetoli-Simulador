@@ -1,0 +1,16 @@
+name = "benetoli-meta-event"
+main = "src/index.ts"
+compatibility_date = "2025-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Configure ALLOWED_ORIGIN via wrangler secret pra restringir CORS ao domínio
+# do GitHub Pages (ex.: https://marcosviniiciusfs-png.github.io). Se omitido,
+# vira CORS aberto (*) — ok pra começar, restringir depois.
+#
+# Secrets necessários (NÃO ficam neste arquivo, são setados via CLI):
+#   wrangler secret put META_PIXEL_ID
+#   wrangler secret put META_CAPI_TOKEN
+#   wrangler secret put ALLOWED_ORIGIN  (opcional)
+
+[observability]
+enabled = true
