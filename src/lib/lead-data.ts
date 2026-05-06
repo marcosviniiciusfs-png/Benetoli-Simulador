@@ -11,6 +11,7 @@ export interface LeadData {
   parcela_ideal: string;
   parcela_ideal_numero: number;
   cidade: string;
+  event_id?: string;
 }
 
 export function parseBRLToNumber(brl: string): number {

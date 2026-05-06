@@ -13,25 +13,7 @@ declare global {
 const ThankYou = () => {
   useEffect(() => {
     window.fbq?.("track", "PageView");
-
-    const lead = consumeLeadData();
-    const customData: Record<string, unknown> = {
-      content_name: "Simulador Benetoli Consórcios",
-      content_category: "consorcio_imovel",
-      currency: "BRL",
-    };
-    if (lead) {
-      customData.value = lead.valor_pretendido_numero;
-      customData.tipo = lead.tipo;
-      customData.tipo_bem = lead.tipo_bem;
-      customData.tempo_aquisicao = lead.tempo_aquisicao;
-      customData.valor_pretendido = lead.valor_pretendido;
-      customData.tem_entrada = lead.tem_entrada;
-      customData.valor_entrada = lead.valor_entrada;
-      customData.parcela_ideal = lead.parcela_ideal;
-      customData.cidade = lead.cidade;
-    }
-    window.fbq?.("track", "Lead", customData);
+    consumeLeadData();
   }, []);
 
   return (

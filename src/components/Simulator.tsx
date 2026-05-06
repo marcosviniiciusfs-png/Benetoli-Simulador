@@ -8,6 +8,13 @@ import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { sendFormWebhook, type FormWebhookPayload } from "@/lib/form-webhook";
 import { saveLeadData, parseBRLToNumber } from "@/lib/lead-data";
+import { generateEventId, readFbp, readFbc, sendCapiEvent } from "@/lib/meta";
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
 import InputMask from "react-input-mask";
 import {
   Select,
@@ -146,6 +153,38 @@ const Simulator = () => {
         throw new Error("Erro ao enviar dados para Make");
       }
 
+      const eventId = generateEventId();
+      const customData = {
+        content_name: "Simulador Benetoli Consórcios",
+        content_category: "consorcio_imovel",
+        currency: "BRL",
+        value: parseBRLToNumber(formData.creditAmount),
+        tipo: "IMOVEL",
+        tipo_bem: formData.propertyType,
+        tempo_aquisicao: formData.acquisitionTime,
+        valor_pretendido: formData.creditAmount,
+        tem_entrada: formData.hasDownPayment,
+        valor_entrada: downPaymentValue,
+        parcela_ideal: formData.monthlyPayment,
+        cidade: formData.city.trim(),
+      };
+
+      // Pixel browser-side (com eventID para dedup com CAPI)
+      window.fbq?.("track", "Lead", customData, { eventID: eventId });
+
+      // CAPI server-side: fire-and-forget, não bloqueia redirect
+      sendCapiEvent({
+        eventId,
+        eventName: "Lead",
+        phone: formData.whatsapp,
+        fbp: readFbp(),
+        fbc: readFbc(),
+        eventSourceUrl: window.location.href,
+        customData,
+      }).catch((err) =>
+        console.warn("CAPI falhou (Pixel client-side ainda dispara):", err),
+      );
+
       saveLeadData({
         tipo: "IMOVEL",
         tipo_bem: formData.propertyType,
@@ -157,6 +196,7 @@ const Simulator = () => {
         parcela_ideal: formData.monthlyPayment,
         parcela_ideal_numero: parseBRLToNumber(formData.monthlyPayment),
         cidade: formData.city.trim(),
+        event_id: eventId,
       });
 
       toast({
