@@ -107,21 +107,7 @@ const Simulator = () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
 
-    const webhookUrl = "https://hook.us1.make.com/m60b3l3wcknirc4fc7ezy3553yso5jih";
-    
-    const today = new Date().toISOString().split('T')[0];
     const downPaymentValue = formData.hasDownPayment === "Sim" ? formData.downPaymentAmount : "Não tem";
-    
-    const webhookData = {
-      "Data de Entrada": today,
-      "Nome Completo": formData.fullName.trim(),
-      "WhatsApp": formData.whatsapp,
-      "Tipo de Bem": formData.propertyType,
-      "Valor Pretendido (R$)": formData.creditAmount,
-      "Valor de Entrada (R$)": downPaymentValue,
-      "Parcela Ideal (R$)": formData.monthlyPayment,
-      "Cidade": formData.city.trim()
-    };
 
     const leadPayload: FormWebhookPayload = {
       nome: formData.fullName.trim(),
@@ -138,20 +124,9 @@ const Simulator = () => {
     };
 
     try {
-      console.log("Enviando dados para Make e webhook de leads:", webhookData);
+      console.log("Enviando lead para o CRM:", leadPayload);
 
-      const [makeResponse] = await Promise.all([
-        fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(webhookData),
-        }),
-        sendFormWebhook(leadPayload),
-      ]);
-
-      if (!makeResponse.ok) {
-        throw new Error("Erro ao enviar dados para Make");
-      }
+      await sendFormWebhook(leadPayload);
 
       const eventId = generateEventId();
       const customData = {
